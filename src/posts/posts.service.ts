@@ -4,6 +4,9 @@ import { Model } from 'mongoose';
 import { Post, PostDocument } from 'src/posts/schemas/post.schema';
 import { CreatePostDto } from './dto/create-post.dto';
 import { ResponsePostDto } from './dto/response-post.dto';
+import { log } from 'console';
+import { UpdatePostDto } from './dto/update-post.dto';
+import { UpdatePostPatchDto } from './dto/update-post-patch.dto';
 
 @Injectable()
 export class PostsService {
@@ -19,30 +22,59 @@ export class PostsService {
         // postDto.description = post.description
 
         // return postDto
-        return post 
+        return post
 
     }
 
-    async getAll () {
+    async getAll() {
         const posts = await this.postModel.find()
 
-    //     return posts.map(post => {
-    //         return {
-    //             _id: post._id.toString(),
-    //             name: post.name,
-    //             description: post.description
-    //         }
-    //     })
-    // }
-    return posts
+        //     return posts.map(post => {
+        //         return {
+        //             _id: post._id.toString(),
+        //             name: post.name,
+        //             description: post.description
+        //         }
+        //     })
+        // }
+        return posts
     }
 
 
-    async getOne(id: string){
+    async getOne(id: string) {
         const post = await this.postModel.findById(id)
-        if(!post){
+        if (!post) {
             throw new NotFoundException(`post with id: ${id} not found`)
         }
         return post
     }
+
+
+
+
+    async update(id: string, body: UpdatePostDto) {
+        const post = await this.postModel.findByIdAndUpdate(id, body)
+        if (!post) {
+            throw new NotFoundException(`post with id: ${id} not found`)
+        }
+        return post
+    }
+
+
+    async updateOne(id: string, body: UpdatePostPatchDto) {
+        const post = await this.postModel.findByIdAndUpdate(id, body)
+        if (!post) {
+            throw new NotFoundException(`post with id: ${id} not found`)
+        }
+        return post
+
+    }
+
+    async deleteOne(id: string) {
+        const post = await this.postModel.findByIdAndDelete(id)
+        if (!post) {
+            throw new NotFoundException(`post with id: ${id} not found`)
+        }
+    }
+
 }
