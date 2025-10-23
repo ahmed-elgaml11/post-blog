@@ -7,6 +7,7 @@ import { Post, PostSchema } from 'src/posts/schemas/post.schema';
 @Module({
   imports: [MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }])],
   controllers: [PostsController],
-  providers: [PostsService]
+  providers: [PostsService],
+  exports: [PostsService],
 })
 export class PostsModule { }
