@@ -6,7 +6,10 @@ import { ResponsePostDto } from './dto/response-post.dto';
 import { ValidateMongoIdPipe } from 'src/pipes/validate-mongo.pipe';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { UpdatePostPatchDto } from './dto/update-post-patch.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('posts')
 @Controller('posts')
 @transformToDtoResponse(ResponsePostDto)
 export class PostsController {
